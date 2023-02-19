@@ -8,12 +8,19 @@ namespace FunBooksAndVideos.Repositories
 {
     public class OrderItemRepository : BaseRepository<OrderItem, FunBooksAndVideosDbContext>, IOrderItemRepository
     {
-        public OrderItemRepository(Lazy<FunBooksAndVideosDbContext> context) : base(context)
+        private readonly ILogger<UserRepository> _logger;
+
+        public OrderItemRepository(
+            Lazy<FunBooksAndVideosDbContext> context, 
+            ILogger<UserRepository> logger) : base(context)
         {
+            _logger = logger;
         }
 
         public async Task<List<OrderItem>> GetOrderItems(int orderId)
         {
+            _logger.LogInformation(new EventId(1), $"{nameof(GetOrderItems)} - retrieving items from database");
+
             return await DbSet
                 .Include(oi => oi.Product)
                 .Include(oi => oi.Order)
@@ -23,11 +30,15 @@ namespace FunBooksAndVideos.Repositories
 
         public async Task AddOrderItem(OrderItem orderItem)
         {
-           await InsertAsync(orderItem);
+            _logger.LogInformation(new EventId(2), $"{nameof(AddOrderItem)} - retrieving item for id {orderItem} from database");
+
+            await InsertAsync(orderItem);
         }
 
         public void UpdateOrderItem(OrderItem orderItem)
         {
+            _logger.LogInformation(new EventId(2), $"{nameof(UpdateOrderItem)} - retrieving item for id {orderItem} from database");
+
             Update(orderItem);
         }
     }
