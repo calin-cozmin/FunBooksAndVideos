@@ -10,6 +10,8 @@ namespace FunBooksAndVideos.Context.Models
 
         [Required] public string Description { get; set; }
 
+        [Required] public Enums.PaymentType Type { get; set; }
+
         public Order Order { get; set; }
     }
 }
