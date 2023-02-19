@@ -18,9 +18,9 @@ namespace FunBooksAndVideos.Repositories
             _logger = logger;
         }
 
-        public async Task<List<Order>> GetOrder()
+        public async Task<List<Order>> GetOrders()
         {
-            _logger.LogInformation(new EventId(1), $"{nameof(GetOrder)} - retrieving items from database");
+            _logger.LogInformation(new EventId(1), $"{nameof(GetOrders)} - retrieving items from database");
 
             return await DbSet
                 .Include(o => o.PaymentType)

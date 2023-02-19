@@ -5,7 +5,7 @@ namespace FunBooksAndVideos.Repositories.Interfaces
 {
     public interface IOrderRepository : IBaseRepository<Order>
     {
-        Task<List<Order>> GetOrder();
+        Task<List<Order>> GetOrders();
 
         Task<Order?> GetOrderById(int orderId);
 

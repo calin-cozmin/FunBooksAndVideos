@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 namespace FunBooksAndVideos.Controllers
 {
     [ApiController]
-    [Route("user")]
-    public class UsersController : ControllerBase
+    [Route("product")]
+    public class ProductController : ControllerBase
     {
-        private readonly ILogger<UsersController> _logger;
-        private readonly IUserService _userService;
+        private readonly ILogger<ProductController> _logger;
+        private readonly IProductService _productService;
 
-        public UsersController(
-            ILogger<UsersController> logger,
-            IUserService userService)
+        public ProductController(
+            ILogger<ProductController> logger,
+            IProductService productService)
         {
             _logger = logger;
-            _userService = userService;
+            _productService = productService;
         }
         
         [HttpGet]
-        [Route("/getallusers")]
+        [Route("/getallproducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get()
@@ -28,7 +28,7 @@ namespace FunBooksAndVideos.Controllers
 
             try
             {
-                var users = await _userService.GetAllUsers();
+                var users = await _productService.GetAllProducts();
 
                 _logger.LogInformation(new EventId(2), $"{nameof(Get)} - items retried");
 
